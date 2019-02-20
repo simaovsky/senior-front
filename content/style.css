@@ -1,0 +1,51 @@
+﻿.default-margin{
+    margin: 0 20px;
+}
+
+.default-color {
+    background-color: #347AB6 !important;
+    border-color: #347AB6 !important;
+}
+
+.default-title{
+    color: #fff;
+    padding: 10px;
+}
+
+.default-border {
+    border-radius: 8px 8px 0 0;
+}
+
+.default-border-inputs{
+    border: 1px solid #347AB6;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+    margin-top: -16px;
+}
+
+.navbar {
+    background-color: #1B9580 !important;
+    color: #1B9580;
+}
+
+.navbar-options{
+    padding: 3px 10px;
+}
+
+.navbar-options span:hover {
+    cursor: pointer;
+}
+
+/*Check in*/
+.checkin-inputs{
+    width: 49%;
+    float: left;
+}
+
+.checkin-right {
+    float: right;
+}
+
+.checkin-inputs input[type="checkbox"]{
+    margin-top: 30px;
+}
