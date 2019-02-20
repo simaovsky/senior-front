@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+
+<head>
+    <meta charset="ISO-8859-1" />
+    <title>Senior - frontend</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="content/style.css" />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="content/script.js"></script>
+</head>
+<body>
+    <!--Navbar section-->
+    <section>
+        <nav class="navbar navbar-expand-lg">
+            <img src="content/images/logo.png" />
+            <a class="navbar-options">
+                <span class="material-icons" style="color: #6BCEBE">list</span>
+            </a>
+        </nav>
+    </section>
+    <br />
+
+    <!--Add people section-->
+    <section class="default-margin">
+        <button type="button" class="btn btn-primary default-color" data-toggle="modal" data-target="#addClient">Incluir pessoa</button>
+
+        <div class="modal" tabindex="-1" role="dialog" id="addClient">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cadastrar cliente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" id="client-name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Documento</label>
+                                <input type="number" id="client-document" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input type="number" id="client-phone" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" onclick="addClient()">CADASTRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br />
+
+    <!--Check in section-->
+    <section class="default-margin">
+        <div class="default-color default-border">
+            <p class="default-title">Novo check in</p>
+        </div>
+        <div class="default-border-inputs">
+            <form>
+                <div class="form-group">
+                    <div class="checkin-inputs">
+                        <label>Data/hora de entrada</label>
+                        <input type="text" class="form-control" id="dateEntry" placeholder="Utilize o padrão 2018-03-14T08:00:00">
+                    </div>
+
+                    <div class="checkin-inputs checkin-right">
+                        <label>Data/hora de saída</label>
+                        <input type="text" class="form-control" id="dateExit" placeholder="Utilize o padrão 2018-03-15T08:00:00">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+                <div class="form-group">
+                    <div class="checkin-inputs">
+                        <label>Pessoa</label>
+                        <input list="listClients" type="text" class="form-control" id="clientSelected" placeholder="Digite o nome do cliente">
+                        <datalist id="listClients">
+                            <script>
+                                for (var i = 0; i < clients.length; i++) {
+                                    document.getElementById("listClients").innerHTML += '<option value="' + clients[i].nome + ' (' + clients[i].documento + ')' + '">';
+                                }
+                            </script>
+                        </datalist>
+                    </div>
+                    <div class="checkin-inputs checkin-right" style="float: right">
+                        <input type="checkbox" id="hasCar">
+                        <label for="hasCar">Possui veículo</label>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+                <button type="button" class="btn btn-primary default-color" onclick="addCheckin()">Salvar</button>
+            </form>
+        </div>
+    </section>
+    <br />
+
+    <!--Consults section-->
+    <section class="default-margin">
+        <div class="default-color default-border">
+            <p class="default-title">Novo check in</p>
+        </div>
+        <div class="default-border-inputs">
+            <form>
+                <div class="form-group">
+                    <div>
+                        <label>Filtrar por:</label>
+                    </div>
+                    <input type="radio" name="optionSearch" id="in" onclick="search(true)"/>
+                    <label for="in" style="padding-right: 30px">Pessoas ainda presentes</label>
+                    <input type="radio" name="optionSearch" id="notIn" onclick="search(false)"/>
+                    <label for="notIn">Pessoas que já deixaram o hotel</label>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table" id="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Documento</th>
+                                <th scope="col">Valor gasto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
